@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+# Quick start
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/danganhphu/food-express-keycloakify.git
+cd food-express-keycloakify
+bun install # Or use an other package manager, just be sure to delete the yarn.lock if you use another package manager.
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+# Testing the theme locally
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+You can start Storybook locally with:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+# How to customize the theme
+```bash
+bun run storybook
+```
+[Documentation](https://docs.keycloakify.dev/customization-strategies)
+
+# Building the theme
+
+You need to have [Maven](https://maven.apache.org/) installed to build the theme (Maven >= 3.1.1, Java >= 7).  
+The `mvn` command must be in the $PATH.
+
+-   On macOS: `brew install maven`
+-   On Debian/Ubuntu: `sudo apt-get install maven`
+-   On Windows: `choco install openjdk` and `choco install maven` (Or `scoop install maven` `scoop bucket add java` and `scoop install openjdk`))
+
+```bash
+bun run build-keycloak-theme
+```
+
+Note that by default Keycloakify generates multiple .jar files for different versions of Keycloak.  
+You can customize this behavior, see documentation [here](https://docs.keycloakify.dev/targeting-specific-keycloak-versions).
+
+# Testing the Component with keycloakify
+
+```bash
+npx keycloakify start-keycloak
+```
+# Testing the Component with Docker compose
+
+```bash
+docker compose -f .\deployments\compose\docker-compose.local.yml up -d
 ```
